@@ -1,0 +1,30 @@
+name: "Build-FPSLocker-Warehouse"
+
+on: [push]
+env:
+  TZ: Asia/Shanghai
+jobs:
+  Build-FPSLocker-Warehouse:
+    name: "Release"
+    runs-on: 'ubuntu-latest'
+    container: devkitpro/devkita64
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: 'Get Date'
+        run: |
+          echo "DATE=$(date +%Y-%m-%d)" >> $GITHUB_ENV
+      - name: 'Archive Release'
+        run: |
+          zip -rq FPSLocker-Warehouse.zip ./SaltySD ./atmosphere
+          zip -rq -P https://afdian.net/a/weizard FPSLocker-Warehouse_${{ env.DATE }}.zip ./SaltySD ./atmosphere
+      - name: Release
+        uses: softprops/action-gh-release@master
+        with:
+          draft: false
+          generate_release_notes: true
+          tag_name: '${{ env.DATE }}'
+          files: |
+            FPSLocker-Warehouse.zip
+            FPSLocker-Warehouse_${{ env.DATE }}.zip
