@@ -16,11 +16,8 @@ jobs:
         run: |
           echo "DATE=$(date +%Y%m%d)" >> $GITHUB_ENV
       - name: 'Archive Release'
-        uses: thedoctor0/zip-release@0.7.5
-        with:
-          type: 'zip'
-          path: './SaltySD ./atmosphere'
-          filename: 'FPSLocker-Warehouse_${{ env.DATE }}.zip'
+        run: |
+          zip -rq -P https://afdian.net/a/weizard FPSLocker-Warehouse_${{ env.DATE }}.zip ./SaltySD ./atmosphere
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
