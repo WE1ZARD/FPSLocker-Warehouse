@@ -14,7 +14,7 @@ jobs:
           fetch-depth: 0
       - name: 'Get Date'
         run: |
-          echo "DATE=$(date +%Y%m%d)" >> $GITHUB_ENV
+          echo "DATE=$(date +%Y-%m-%d)" >> $GITHUB_ENV
       - name: 'Archive Release'
         run: |
           zip -rq -P https://afdian.net/a/weizard FPSLocker-Warehouse_${{ env.DATE }}.zip ./SaltySD ./atmosphere
