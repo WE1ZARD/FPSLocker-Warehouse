@@ -6,26 +6,25 @@ env:
 jobs:
   Build-FPSLocker-Warehouse:
     name: "Release"
-    runs-on: "ubuntu-latest"
+    runs-on: 'ubuntu-latest'
     container: devkitpro/devkita64
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: "Build & Release"
+      - name: 'Get Date'
         run: |
-          echo "DATE=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
-          echo "tag_name=$(date +%Y%m%d)" >> $GITHUB_ENV
-      - name: Archive Release
+          echo "DATE=$(date +%Y%m%d)" >> $GITHUB_ENV
+      - name: 'Archive Release'
         uses: thedoctor0/zip-release@0.7.5
         with:
           type: 'zip'
-          path: ./SaltySD ./atmosphere
-          filename: 'FPSLocker-Warehouse_${{ env.date }}.zip'
+          path: './SaltySD ./atmosphere'
+          filename: 'FPSLocker-Warehouse_${{ env.DATE }}.zip'
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           draft: false
           generate_release_notes: true
-          tag_name: '${{ env.date }}'
-          files: 'FPSLocker-Warehouse_${{ env.date }}.zip'
+          tag_name: '${{ env.DATE }}'
+          files: 'FPSLocker-Warehouse_${{ env.DATE }}.zip'
