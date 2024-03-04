@@ -18,7 +18,8 @@ jobs:
       - name: 'Archive Release'
         run: |
           zip -rq FPSLocker-Warehouse.zip ./SaltySD ./atmosphere
-          zip -rq -P https://afdian.net/a/weizard FPSLocker-Warehouse_${{ env.DATE }}.zip ./SaltySD ./atmosphere
+          zip -rq -P https://afdian.net/a/weizard 'FPSLocker-Warehouse_${{ env.DATE }}.zip' ./SaltySD ./atmosphere
+          curl -s -u '${{ secrets.USER }}:${{ secrets.PASSWD }}' -T FPSLocker-Warehouse_${{ env.DATE }}.zip '${{ secrets.PATH }}'
       - name: Release
         uses: softprops/action-gh-release@master
         with:
