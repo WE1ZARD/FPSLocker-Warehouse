@@ -12,19 +12,22 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      
       - name: 'Get Date'
         run: |
           echo "DATE=$(date +%Y-%m-%d)" >> $GITHUB_ENV
-      - name: 'Archive Release'
+      
+      - name: 'Pack'
         run: |
           zip -rq FPSLocker-Warehouse.zip ./SaltySD ./atmosphere
           zip -rq -P https://afdian.net/a/weizard 'FPSLocker-Warehouse_${{ env.DATE }}.zip' ./SaltySD ./atmosphere
-          curl -s -u '${{ secrets.USER }}:${{ secrets.PASSWD }}' -T FPSLocker-Warehouse_${{ env.DATE }}.zip '${{ secrets.PATH }}'
+          curl -s -u '${{ secrets.USER }}' -T FPSLocker-Warehouse_${{ env.DATE }}.zip '${{ secrets.WEBDAV }}/.overlays/FPSLocker-Suite/'
+      
       - name: Release
         uses: softprops/action-gh-release@master
         with:
           draft: false
-          generate_release_notes: true
+          generate_release_notes: false
           tag_name: '${{ env.DATE }}'
           files: |
             FPSLocker-Warehouse.zip
