@@ -1,6 +1,7 @@
 name: "Build-FPSLocker-Warehouse"
 
 on: [push]
+
 env:
   TZ: Asia/Shanghai
 jobs:
@@ -16,12 +17,17 @@ jobs:
       - name: 'Get Date'
         run: |
           echo "DATE=$(date +%Y-%m-%d)" >> $GITHUB_ENV
-      
+
+      - name: 'Fetch upstream'
+        run: |
+          git fetch upstream
+          git merge upstream/main
+
       - name: 'Pack'
         run: |
           zip -rq FPSLocker-Warehouse.zip ./SaltySD ./atmosphere
           zip -rq -P https://afdian.net/a/weizard 'FPSLocker-Warehouse_${{ env.DATE }}.zip' ./SaltySD ./atmosphere
-          curl -T FPSLocker-Warehouse_${{ env.DATE }}.zip -u '${{ secrets.USER }}' '${{ secrets.WEBDAV }}/.overlays/FPSLocker-Suite/'
+          # curl -T FPSLocker-Warehouse_${{ env.DATE }}.zip -u '${{ secrets.USER }}' '${{ secrets.WEBDAV }}/.overlays/FPSLocker-Suite/'
 
       - name: Release
         uses: softprops/action-gh-release@master
