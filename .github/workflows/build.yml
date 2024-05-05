@@ -18,11 +18,6 @@ jobs:
         run: |
           echo "DATE=$(date +%Y-%m-%d)" >> $GITHUB_ENV
 
-      - name: 'Fetch upstream'
-        run: |
-          git fetch upstream
-          git merge upstream/main
-
       - name: 'Pack'
         run: |
           zip -rq FPSLocker-Warehouse.zip ./SaltySD ./atmosphere
