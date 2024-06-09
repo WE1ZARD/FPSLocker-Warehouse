@@ -1,8 +1,8 @@
-name: "Schedule Run"
+name: "Manual Run"
 
 on:
-  schedule:
-    - cron: "0 0 * * 5"
+  workflow_dispatch:
+
 env:
   TZ: Asia/Shanghai
 jobs:
