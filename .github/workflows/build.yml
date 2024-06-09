@@ -1,7 +1,8 @@
 name: "Build-FPSLocker-Warehouse"
 
-on: [push]
-
+on:
+  schedule:
+    - cron: "0 0 * * 5"
 env:
   TZ: Asia/Shanghai
 jobs:
@@ -32,4 +33,3 @@ jobs:
           tag_name: '${{ env.DATE }}'
           files: |
             FPSLocker-Warehouse.zip
-            FPSLocker-Warehouse_${{ env.DATE }}.zip
